@@ -1,0 +1,36 @@
+{
+  "dev": {
+    "driver": "pg",
+    "user": { "ENV": "DB_USERNAME" },
+    "password": { "ENV": "PASSWORD" },
+    "database": { "ENV": "DATABASE" },
+    "host": { "ENV": "HOST" },
+    "port": 5432,
+    "schema": "public"
+  },
+  "test": {
+    "driver": "pg",
+    "user": { "ENV": "DB_USERNAME" },
+    "password": { "ENV": "PASSWORD" },
+    "database": { "ENV": "DATABASE_TEST" },
+    "host": { "ENV": "HOST" },
+    "port": 5432,
+    "schema": "public"
+  },
+  "prod": {
+    "user": { "ENV": "DB_USERNAME" },
+    "password": { "ENV": "PASSWORD" },
+    "host": { "ENV": "HOST" },
+    "database": { "ENV": "DATABASE" },
+    "port": 5432,
+    "driver": "pg"
+  },
+  "pg": {
+    "user": { "ENV": "DB_USERNAME" },
+    "password": { "ENV": "PASSWORD" },
+    "host": { "ENV": "localhost" },
+    "database": { "ENV": "DATABASE" },
+    "port": 5432,
+    "driver": "pg"
+  }
+}

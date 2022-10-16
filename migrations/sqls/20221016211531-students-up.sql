@@ -1,0 +1,6 @@
+CREATE TABLE students (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    hash TEXT NOT NULL
+);
