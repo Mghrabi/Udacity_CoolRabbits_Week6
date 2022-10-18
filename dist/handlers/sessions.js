@@ -39,8 +39,8 @@ exports.__esModule = true;
 var express_1 = require("express");
 var sessionModel_1 = require("../models/sessionModel");
 var dotenv_1 = require("dotenv");
-var model = new sessionModel_1.SessionModel();
 (0, dotenv_1.config)();
+var model = new sessionModel_1.SessionModel();
 var index = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var sessions;
     return __generator(this, function (_a) {
@@ -79,7 +79,7 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
                 return [4 /*yield*/, model.create(req.body)];
             case 1:
                 session = _a.sent();
-                res.json(session);
+                res.status(201).json(session);
                 return [3 /*break*/, 3];
             case 2:
                 e_1 = _a.sent();
