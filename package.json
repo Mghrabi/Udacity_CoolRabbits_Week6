@@ -4,7 +4,7 @@
   "description": "* Run npm install\r * Add .env file and add necessary variables \r 1. DB_USERNAME\r 2. HOST\r 3. DATABASE=week6 (Or you can chage it)\r 4. PASSWORD",
   "main": "server.ts",
   "scripts": {
-    "start": "node src/server.ts",
+    "start": "node dist/server.js",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
     "tsc": "tsc",
     "migrations": "db-migrate up -c 10 -e dev"
