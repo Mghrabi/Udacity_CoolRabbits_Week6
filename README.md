@@ -1,6 +1,6 @@
 # PROJECT SETUP
 * Run npm install
-* Add .env file and add necessary variables 
+* Add .env file and add the necessary variables:
 1. DB_USERNAME
 2. HOST
 3. DATABASE=week6 (Or you can chage it)
