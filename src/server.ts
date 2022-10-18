@@ -11,7 +11,7 @@ dotenv.config();
 
 app.use(cors());
 
-app.get("/", function (req: Request, res: Response) {
+app.get("/new", function (req: Request, res: Response) {
   res.send("Hello World!");
 });
 

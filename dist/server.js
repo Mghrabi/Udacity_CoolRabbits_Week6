@@ -13,7 +13,7 @@ var dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1["default"].config();
 // createHash('1');
 app.use((0, cors_1["default"])());
-app.get("/", function (req, res) {
+app.get("/new", function (req, res) {
     res.send("Hello World!");
 });
 app.listen(3000, function () {
