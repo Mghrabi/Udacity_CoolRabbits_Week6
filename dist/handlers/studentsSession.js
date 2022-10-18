@@ -35,91 +35,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 exports.__esModule = true;
-var studentModel_1 = require("../models/studentModel");
-var authorization_1 = require("../utilities/authorization");
-var dotenv_1 = __importDefault(require("dotenv"));
-var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-var store = new studentModel_1.StudentModel();
-dotenv_1["default"].config();
-var index = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var users;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, store.index()];
-            case 1:
-                users = _a.sent();
-                res.json(users);
-                return [2 /*return*/];
-        }
-    });
-}); };
-var show = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, store.show(req.body.id)];
-            case 1:
-                user = _a.sent();
-                res.json(user);
-                return [2 /*return*/];
-        }
-    });
-}); };
+var express_1 = require("express");
+var studentSessionModel_1 = require("../models/studentSessionModel");
+var dotenv_1 = require("dotenv");
+(0, dotenv_1.config)();
+var model = new studentSessionModel_1.StudentSessionModel();
 var create = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, newuser, token, err_1;
+    var studentInSeesoin, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                user = {
-                    email: req.body.email,
-                    name: req.body.name,
-                    hash: req.body.hash
-                };
-                return [4 /*yield*/, store.create(user)];
+                return [4 /*yield*/, model.create(req.body)];
             case 1:
-                newuser = _a.sent();
-                token = jsonwebtoken_1["default"].sign(newuser, process.env.TOKEN_SECRET);
-                res.json(token);
+                studentInSeesoin = _a.sent();
+                res.status(201).json(studentInSeesoin);
                 return [3 /*break*/, 3];
             case 2:
-                err_1 = _a.sent();
-                res.status(400);
-                res.json(err_1);
+                e_1 = _a.sent();
+                console.error(e_1);
+                res.status(400).end();
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
     });
 }); };
-var authenticate = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, token, error_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, store.authenticate(req.body.email, req.body.hash)];
-            case 1:
-                user = (_a.sent());
-                token = jsonwebtoken_1["default"].sign(user, process.env.TOKEN_SECRET);
-                res.json(token);
-                return [3 /*break*/, 3];
-            case 2:
-                error_1 = _a.sent();
-                res.status(401);
-                res.json({ error: 'wrong password or username' });
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); };
-var students_routes = function (app) {
-    app.get('/users', authorization_1.authorizationMiddleWare, index);
-    app.get('/get_user/:id', authorization_1.authorizationMiddleWare, show);
-    app.post('/add_users', create);
-    app.post('/authenticate', authenticate);
-};
-exports["default"] = students_routes;
+var router = (0, express_1.Router)();
+router
+    .route('/')
+    .post(create);
+exports["default"] = router;

@@ -35,91 +35,87 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 exports.__esModule = true;
-var studentModel_1 = require("../models/studentModel");
-var authorization_1 = require("../utilities/authorization");
-var dotenv_1 = __importDefault(require("dotenv"));
-var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-var store = new studentModel_1.StudentModel();
-dotenv_1["default"].config();
+var express_1 = require("express");
+var sessionModel_1 = require("../models/sessionModel");
+var dotenv_1 = require("dotenv");
+(0, dotenv_1.config)();
+var model = new sessionModel_1.SessionModel();
 var index = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var users;
+    var sessions;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, store.index()];
+            case 0: return [4 /*yield*/, model.index()];
             case 1:
-                users = _a.sent();
-                res.json(users);
+                sessions = _a.sent();
+                res.json(sessions);
                 return [2 /*return*/];
         }
     });
 }); };
 var show = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user;
+    var session;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, store.show(req.body.id)];
+            case 0: return [4 /*yield*/, model.show(req.params.id)];
             case 1:
-                user = _a.sent();
-                res.json(user);
+                session = _a.sent();
+                res.json(session);
                 return [2 /*return*/];
         }
     });
 }); };
 var create = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, newuser, token, err_1;
+    var session, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                user = {
-                    email: req.body.email,
-                    name: req.body.name,
-                    hash: req.body.hash
-                };
-                return [4 /*yield*/, store.create(user)];
+                //check that date sent by the user is valid one, if not vaild Date.parse() return NaN
+                // date must be m/d/y
+                if (Number.isNaN(Date.parse(req.body.date))) {
+                    throw new Error('invaild date');
+                }
+                return [4 /*yield*/, model.create(req.body)];
             case 1:
-                newuser = _a.sent();
-                token = jsonwebtoken_1["default"].sign(newuser, process.env.TOKEN_SECRET);
-                res.json(token);
+                session = _a.sent();
+                res.status(201).json(session);
                 return [3 /*break*/, 3];
             case 2:
-                err_1 = _a.sent();
-                res.status(400);
-                res.json(err_1);
+                e_1 = _a.sent();
+                console.log(e_1);
+                res.status(400).end();
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
     });
 }); };
-var authenticate = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, token, error_1;
+var remove = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var e_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, store.authenticate(req.body.email, req.body.hash)];
+                return [4 /*yield*/, model["delete"](req.params.id)];
             case 1:
-                user = (_a.sent());
-                token = jsonwebtoken_1["default"].sign(user, process.env.TOKEN_SECRET);
-                res.json(token);
+                _a.sent();
+                res.end();
                 return [3 /*break*/, 3];
             case 2:
-                error_1 = _a.sent();
-                res.status(401);
-                res.json({ error: 'wrong password or username' });
+                e_2 = _a.sent();
+                console.log(e_2);
+                res.status(400).end();
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
     });
 }); };
-var students_routes = function (app) {
-    app.get('/users', authorization_1.authorizationMiddleWare, index);
-    app.get('/get_user/:id', authorization_1.authorizationMiddleWare, show);
-    app.post('/add_users', create);
-    app.post('/authenticate', authenticate);
-};
-exports["default"] = students_routes;
+var router = (0, express_1.Router)();
+router
+    .route('/')
+    .get(index)
+    .post(create);
+router
+    .route('/:id')
+    .get(show)["delete"](remove);
+exports["default"] = router;
