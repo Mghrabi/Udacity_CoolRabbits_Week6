@@ -8,3 +8,4 @@
 
 * Create a database called (week6)
 * Run (npm run migration)
+* Run (npm run watch)
