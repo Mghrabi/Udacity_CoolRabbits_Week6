@@ -1,8 +1,8 @@
-import express, { Request, Response, Router } from 'express';
+import { Request, Response, Router } from 'express';
 import { Session, SessionModel } from '../models/sessionModel';
 import { config } from 'dotenv';
-const model = new SessionModel();
 config();
+const model = new SessionModel();
 const index = async (_req: Request, res: Response) => {
     const sessions = await model.index();
     res.json(sessions);
@@ -19,7 +19,7 @@ const create = async (req: Request, res: Response) => {
             throw new Error('invaild date');
         }
         const session = await model.create(req.body);
-        res.json(session);
+        res.status(201).json(session);
     } catch(e) {
         console.log(e);
         res.status(400).end();
