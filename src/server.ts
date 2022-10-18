@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import {authorizationMiddleWare} from './utilities/authorization'
 import students_routes from "./handlers/students";
 import sessionRouter from "./handlers/sessions";
-import studentsInSessionRouter from "./handlers/studentsSession";
+import studentsInSessionRouter from "./handlers/studentsSessions";
 const app: Application = express();
 const address: string = "0.0.0.0:3000";
 app.use(bodyParser.json());
