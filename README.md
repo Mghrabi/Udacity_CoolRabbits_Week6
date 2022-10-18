@@ -12,12 +12,13 @@
 * Run (npm run watch)
 
 ## End Points
-- GET '/users' index
-- GET '/get_user/:id' show
-- POST '/add_users' create
-- POST '/authenticate' authenticate
-- GET '/session' index
-- POST '/session' create
-- GET '/session/:id' show
-- DELETE '/session/:id' delete
-- POST '/user/addtosession' create
+| Verp   | Route                | operation          |
+|--------|----------------------|--------------------|
+| GET    | '/users'             | index students     |
+| GET    | '/get_user/:id'      | show one student   |
+| POST   | '/add-users'         | create user        |
+| POST   | '/authenticate'      | authenticate       |
+| GET    | '/session'           | index all sessions |
+| POST   | '/session/:id'       | show one session   |
+| DELETE | '/session/:id'       | delete session     |
+| POST   | '/user/addtosession' | create one session |
