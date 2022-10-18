@@ -21,7 +21,7 @@ app.get("/", function (req: Request, res: Response) {
 });
 students_routes(app);
 app.use('/session', authorizationMiddleWare, sessionRouter);
-app.use('/user/addtosession', authorizationMiddleWare,studentsInSessionRouter);
+app.use('/user/addtosession', authorizationMiddleWare, studentsInSessionRouter);
 app.listen(3000, function () {
   console.log(`starting app on: ${address}`);
 });
