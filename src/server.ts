@@ -1,20 +1,23 @@
 import express, { Request, Response, Application } from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import userRouter from "./handlers/userHanlder";
+import students_routes from "./handlers/students";
 const app: Application = express();
 const address: string = "0.0.0.0:3000";
 app.use(bodyParser.json());
 import dotenv from "dotenv";
-import productRouter from "./handlers/productHandler";
-import OrderRouter from "./handlers/orderHandler";
+
+// import productRouter from "./handlers/productHandler";
+// import OrderRouter from "./handlers/orderHandler";
 dotenv.config();
+
+console.log(process.env);
 // createHash('1');
 
 app.use(cors());
-userRouter(app);
-productRouter(app);
-OrderRouter(app);
+students_routes(app);
+// productRouter(app);
+// OrderRouter(app);
 
 app.get("/", function (req: Request, res: Response) {
   res.send("Hello World!");

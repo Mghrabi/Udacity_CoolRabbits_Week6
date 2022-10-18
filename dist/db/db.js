@@ -7,11 +7,8 @@ const pg_1 = require("pg");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 // console.log('process.env',process.env)
-const { DB_USERNAME, HOST, DATABASE, DATABASE_TEST, PASSWORD, ENV } = process.env;
+const { DB_USERNAME, HOST, DATABASE, PASSWORD } = process.env;
 let usedDatabase = DATABASE;
-if (ENV === "TEST") {
-    usedDatabase = DATABASE_TEST;
-}
 // let usedDatabase = DATABASE_TEST;
 const client = new pg_1.Pool({
     user: DB_USERNAME,
